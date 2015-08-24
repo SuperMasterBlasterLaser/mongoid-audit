@@ -7,5 +7,6 @@ class HistoryTracker
 	self.modifier
   end
   
+  mongoid_userstamp
 end
 
