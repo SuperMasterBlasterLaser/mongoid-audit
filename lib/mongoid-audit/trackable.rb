@@ -10,7 +10,7 @@ module Trackable
 	  version_field: :version,
       modifier_field: :updater,
 	  modifier_field_inverse_of: :person,
-      except: ["created_at", "updated_at", "c_at", "u_at"],
+      except: ["created_at", "updated_at", "c_at", "u_at"]
     })
   end
 end
