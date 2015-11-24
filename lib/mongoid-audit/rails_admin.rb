@@ -14,7 +14,7 @@ module RailsAdmin
           if @message == 'destroy'
             return 'delete'
           end
-		  puts @version.modified.to_a
+		  puts @version.modified.to_s
           mods = @version.modified.to_a.map do |c|
             if c[1].class.name == "Moped::BSON::Binary" || c[1].class == "BSON::Binary"
               c[0] + " = {binary data}"
