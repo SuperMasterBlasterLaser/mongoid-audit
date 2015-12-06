@@ -15,6 +15,10 @@ module RailsAdmin
             return I18n.t('audit.delete') #'delete'
           end
 
+          if @message == 'update'
+            @message = I18n.t('audit.update')
+          end
+
           mods = @version.modified.to_a.map do |c|
             if c[1].class.name == "Moped::BSON::Binary" || c[1].class == "BSON::Binary"
               c[0] + " #{I18n.t('audit.became')} {binary data}"
