@@ -9,19 +9,19 @@ module RailsAdmin
         def message
           @message = @version.action
           if @message == 'create'
-            return 'new'
+            return I18n.t('audit.create') #'new'
           end
           if @message == 'destroy'
-            return 'delete'
+            return I18n.t('audit.delete') #'delete'
           end
-		  puts @version.modified.to_s
+
           mods = @version.modified.to_a.map do |c|
             if c[1].class.name == "Moped::BSON::Binary" || c[1].class == "BSON::Binary"
-              c[0] + " = {binary data}"
-            elsif c[1].to_s.length > 220
-              c[0] + " = " + c[1].to_s[0..200]
+              c[0] + " #{I18n.t('audit.became')} {binary data}"
+            #elsif c[1].to_s.length > 220
+            #  c[0] + " = " + c[1].to_s[0..200]
             else
-              c[0] + " = " + c[1].to_s
+              c[0] + " #{I18n.t('audit.became')} " + c[1].to_s
             end
 
           end
@@ -42,6 +42,9 @@ module RailsAdmin
               table = assoc[index]['name'].constantize.relations[assoc[index+1]['name']].class_name
               index += 1
             end
+
+            table = Object.const_get(table).class.model_name.human
+
             table
           end
         rescue Exception => e
