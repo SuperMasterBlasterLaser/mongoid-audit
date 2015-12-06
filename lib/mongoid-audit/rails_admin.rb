@@ -21,7 +21,7 @@ module RailsAdmin
 
           mods = @version.modified.to_a.map do |c|
 
-            c[0] = Object.const_get(@version.association_chain.last['name']).human_attribute_name(c[0])
+            c[0] = Object.const_get(table).human_attribute_name(c[0])
 
 
             if c[1].class.name == "Moped::BSON::Binary" || c[1].class == "BSON::Binary"
@@ -33,9 +33,9 @@ module RailsAdmin
             else
               c[0] + " #{I18n.t('audit.became')} " + c[1].to_s
             end
-
           end
-          @version.respond_to?(:modified) ? @message + ' ' + table +  " [" + mods.join(", ") + "]" : @message
+          table_name = Object.const_get(table).model_name.human
+          @version.respond_to?(:modified) ? @message + ' ' + table_name +  " [" + mods.join(", ") + "]" : @message
         end
 
         def created_at
@@ -52,11 +52,10 @@ module RailsAdmin
               table = assoc[index]['name'].constantize.relations[assoc[index+1]['name']].class_name
               index += 1
             end
-
             #table
           end
 
-          table = Object.const_get(table).model_name.human
+          #table = Object.const_get(table).model_name.human
           table
         rescue Exception => e
           puts "mongoid-audit error: #{e.message}"
