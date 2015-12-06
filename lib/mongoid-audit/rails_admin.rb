@@ -21,7 +21,8 @@ module RailsAdmin
 
           mods = @version.modified.to_a.map do |c|
 
-            c[0] = Object.const_get(table).human_attribute_name(c[0])
+            c[0] = Object.const_get(@version.association_chain.last['name']).human_attribute_name(c[0])
+
 
             if c[1].class.name == "Moped::BSON::Binary" || c[1].class == "BSON::Binary"
               c[0] + " #{I18n.t('audit.became')} {binary data}"
