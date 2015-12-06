@@ -20,6 +20,8 @@ module RailsAdmin
               c[0] + " #{I18n.t('audit.became')} {binary data}"
             #elsif c[1].to_s.length > 220
             #  c[0] + " = " + c[1].to_s[0..200]
+            elsif c[1].to_s.strip.length == 0
+              c[0] + " #{I18n.t('audit.became')} #{I18n.t('audit.empty')}"
             else
               c[0] + " #{I18n.t('audit.became')} " + c[1].to_s
             end
@@ -34,7 +36,7 @@ module RailsAdmin
 
         def table
           if @version.association_chain.length == 1
-            @version.association_chain.last['name']
+            table = @version.association_chain.last['name']
           else
             index = 0
             assoc = @version.association_chain
@@ -43,10 +45,11 @@ module RailsAdmin
               index += 1
             end
 
-            table = Object.const_get(table).class.model_name.human
-
-            table
+            #table
           end
+
+          table = Object.const_get(table).model_name.human
+          table
         rescue Exception => e
           puts "mongoid-audit error: #{e.message}"
           nil
