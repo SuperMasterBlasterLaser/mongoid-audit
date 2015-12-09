@@ -21,7 +21,7 @@ module RailsAdmin
 
           mods = @version.modified.to_a.map do |c|
 
-            puts "#{c[0]} #{c[1]}"
+            #puts "#{c[0]} #{c[1]}"
 
             c[0] = Object.const_get(table).human_attribute_name(c[0])
 
@@ -77,7 +77,13 @@ module RailsAdmin
 
         def item
           # @version.association_chain.last['id']
-          @version.association_chain.last['id'] || I18n.t('audit.deleted')
+
+          if @version.association_chain.last['name'].empty?
+            I18n.t('audit.deleted')
+          else
+            @version.association_chain.last['id']
+          end
+          
         end
       end
 
