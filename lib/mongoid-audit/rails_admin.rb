@@ -30,6 +30,8 @@ module RailsAdmin
               c[0] + " #{I18n.t('audit.became')} {binary data}"
             #elsif c[1].to_s.length > 220
             #  c[0] + " = " + c[1].to_s[0..200]
+            elsif c[1].class == Array
+              c[0] + " #{I18n.t('audit.became')} #{c[1].length}"
             elsif c[1].to_s.strip.length == 0
               c[0] + " #{I18n.t('audit.became')} #{I18n.t('audit.empty')}"
             else
