@@ -33,7 +33,12 @@ module RailsAdmin
             else
               c[0] + " #{I18n.t('audit.became')} " + c[1].to_s
             end
+
+            puts c[1]
           end
+
+
+
           table_name = Object.const_get(table).model_name.human
           @version.respond_to?(:modified) ? @message + ' ' + table_name +  " [" + mods.join(", ") + "]" : @message
         end
