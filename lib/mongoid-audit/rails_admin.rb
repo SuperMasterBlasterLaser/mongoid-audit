@@ -21,6 +21,8 @@ module RailsAdmin
 
           mods = @version.modified.to_a.map do |c|
 
+            puts "#{c[0]} #{c[1]}"
+
             c[0] = Object.const_get(table).human_attribute_name(c[0])
 
 
@@ -34,7 +36,7 @@ module RailsAdmin
               c[0] + " #{I18n.t('audit.became')} " + c[1].to_s
             end
 
-            puts "#{c[0]} #{c[1]}"
+
           end
 
 
