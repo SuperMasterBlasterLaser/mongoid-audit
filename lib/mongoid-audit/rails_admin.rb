@@ -78,9 +78,10 @@ module RailsAdmin
         def item
           # @version.association_chain.last['id']
 
-          if @version.association_chain.last['name'].include?('_')
-            @version.association_chain.last['id']
-          elsif Object.const_get(@version.association_chain.last['name']).where(id: @version.association_chain.last['id']).exists?
+          name = @version.association_chain.last['name']
+          name = name.singularize
+          name = name.camelize
+          if Object.const_get(name).where(id: @version.association_chain.last['id']).exists?
             @version.association_chain.last['id']
           else
             I18n.t('audit.deleted')
