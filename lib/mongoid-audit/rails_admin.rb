@@ -76,7 +76,8 @@ module RailsAdmin
         end
 
         def item
-          @version.association_chain.last['id'].try(:name) || @version.association_chain.last['id']
+          # @version.association_chain.last['id']
+          @version.association_chain.last['id'].try(:name) || I18n.t('audit.deleted')
         end
       end
 
