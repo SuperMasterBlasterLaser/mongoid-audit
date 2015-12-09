@@ -78,7 +78,7 @@ module RailsAdmin
         def item
           # @version.association_chain.last['id']
 
-          if Object.const_get(tr.association_chain.last['name']).where(id: tr.association_chain.last['id']).exists?
+          if Object.const_get(@version.association_chain.last['name']).where(id: @version.association_chain.last['id']).exists?
             @version.association_chain.last['id']
           else
             I18n.t('audit.deleted')
