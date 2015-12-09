@@ -34,7 +34,7 @@ module RailsAdmin
               c[0] + " #{I18n.t('audit.became')} " + c[1].to_s
             end
 
-            puts c[1]
+            puts "#{c[0]} #{c[1]}"
           end
 
 
