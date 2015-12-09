@@ -135,7 +135,8 @@ module RailsAdmin
             if object
               versions = @version_class.where('association_chain.name' => model.model_name, 'association_chain.id' => object.id)
             else
-              versions = @version_class.where('association_chain.name' => model_name)
+              #versions = @version_class.where('association_chain.name' => model_name)
+              versions = @version_class.where('association_chain.name' => I18n.t('audit.deleted'))
             end
             versions = versions.order_by([sort, sort_reverse == 'true' ? :desc : :asc])
             unless all
