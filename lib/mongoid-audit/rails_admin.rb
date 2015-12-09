@@ -78,12 +78,12 @@ module RailsAdmin
         def item
           # @version.association_chain.last['id']
 
-          if @version.association_chain.last['name'].empty?
-            I18n.t('audit.deleted')
-          else
+          if Object.const_get(tr.association_chain.last['name']).where(id: tr.association_chain.last['id']).exists?
             @version.association_chain.last['id']
+          else
+            I18n.t('audit.deleted')
           end
-          
+
         end
       end
 
@@ -143,7 +143,6 @@ module RailsAdmin
               versions = @version_class.where('association_chain.name' => model.model_name, 'association_chain.id' => object.id)
             else
               versions = @version_class.where('association_chain.name' => model_name)
-              #versions = @version_class.where('association_chain.name' => I18n.t('audit.deleted'))
             end
             versions = versions.order_by([sort, sort_reverse == 'true' ? :desc : :asc])
             unless all
