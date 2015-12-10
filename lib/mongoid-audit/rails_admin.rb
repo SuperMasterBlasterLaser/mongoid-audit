@@ -23,6 +23,13 @@ module RailsAdmin
 
             #puts "#{c[0]} #{c[1]}"
 
+
+            if c[0].to_s == 'state'
+              i18n_state = I18n.t("mongoid.state_machines.#{table.downcase}.states.#{c[1]}")
+
+              c[1] = i18n_state
+            end
+
             c[0] = Object.const_get(table).human_attribute_name(c[0])
 
 
