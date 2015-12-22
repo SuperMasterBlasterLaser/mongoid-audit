@@ -91,7 +91,7 @@ module RailsAdmin
           if Object.const_get(name).where(id: @version.association_chain.last['id']).exists?
             @version.association_chain.last['id']
           else
-            I18n.t('audit.deleted')
+            "#{I18n.t('audit.deleted')} #{@version.original.name}"
           end
 
         end
