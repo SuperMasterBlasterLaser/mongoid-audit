@@ -132,11 +132,20 @@ module RailsAdmin
           # do nothing
         end
 
+        def current_page
+          if @page.nil?
+            @page = 1
+          end
+          @page
+        end
+
         def listing_for_model(model, query, sort, sort_reverse, all, page, per_page = (RailsAdmin::Config.default_items_per_page || 20))
+          @page = page
           listing_for_model_or_object(model, nil, query, sort, sort_reverse, all, page, per_page)
         end
 
         def listing_for_object(model, object, query, sort, sort_reverse, all, page, per_page = (RailsAdmin::Config.default_items_per_page || 20))
+          @page = page
           listing_for_model_or_object(model, object, query, sort, sort_reverse, all, page, per_page)
         end
 
